@@ -82,26 +82,32 @@ const App: React.FC = () => {
         {/* Footer Info Section */}
         <div className="flex flex-col items-center gap-10">
           
-          {/* Decorative Pine */}
-          <div className="opacity-20 hover:opacity-100 transition-opacity duration-1000">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-zinc-500">
+          {/* Decorative Papyrus Plant Icon */}
+          <div className="opacity-40 hover:opacity-100 transition-opacity duration-1000">
+            <svg 
+              width="32" 
+              height="32" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              className="text-zinc-500 animate-sway"
+            >
+              {/* Stem */}
               <path 
-                className="animate-draw" 
-                d="M12 3L7 11H17L12 3Z" 
-                stroke="currentColor" strokeWidth="1.5"
+                d="M12 24C12 24 11.5 18 12 12" 
+                stroke="currentColor" 
+                strokeWidth="1.5" 
+                strokeLinecap="round"
               />
-              <path 
-                className="animate-draw" 
-                d="M12 9L4 19H20L12 9Z" 
-                stroke="currentColor" strokeWidth="1.5"
-                style={{ animationDelay: '0.4s' }}
-              />
-              <path 
-                className="animate-draw" 
-                d="M12 19V22" 
-                stroke="currentColor" strokeWidth="1.5"
-                style={{ animationDelay: '1.2s' }}
-              />
+              {/* Umbel Rays (The fan-like head) */}
+              <g stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.8">
+                <path d="M12 12L7 7" />
+                <path d="M12 12L9.5 5" />
+                <path d="M12 12L12 4" />
+                <path d="M12 12L14.5 5" />
+                <path d="M12 12L17 7" />
+                <path d="M12 12L5 10" />
+                <path d="M12 12L19 10" />
+              </g>
             </svg>
           </div>
 
