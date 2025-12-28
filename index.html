@@ -28,20 +28,98 @@
             overflow: hidden;
         }
 
-        /* Padronagem de fundo i9 */
         .dot-pattern {
             background-image: radial-gradient(#000 0.5px, transparent 0.5px);
-            background-size: 24px 24px;
+            background-size: 32px 32px;
         }
 
-        /* Animações */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
+        /* Ciclo de Animação de 10 segundos */
+        
+        /* 1. O corpo do papiro fechando (Aberto largo -> Haste Vertical) */
+        @keyframes papyrus-closing {
+            0%, 2% { transform: scaleX(4) scaleY(0.4); opacity: 0; }
+            8%, 12% { transform: scaleX(3.5) scaleY(0.5); opacity: 1; }
+            30%, 96% { transform: scaleX(1) scaleY(1.1); opacity: 1; } /* Fica formado até quase o final */
+            98%, 100% { transform: scaleX(0.8) scaleY(1.2); opacity: 0; }
         }
 
-        @keyframes draw {
-            to { stroke-dashoffset: 0; }
+        /* 2. As escritas onduladas dentro do papiro */
+        @keyframes wavy-lines {
+            0%, 12% { opacity: 0.4; stroke-dashoffset: 0; }
+            25%, 100% { opacity: 0; stroke-dashoffset: 50; }
+        }
+
+        /* 3. Hastes de madeira acompanhando o fechamento lateral */
+        @keyframes rods-closing {
+            0%, 2% { opacity: 0; }
+            8% { opacity: 1; }
+            96% { opacity: 1; }
+            98%, 100% { opacity: 0; }
+        }
+
+        @keyframes rod-left {
+            0%, 12% { transform: translateX(-18px); }
+            30%, 100% { transform: translateX(0px); }
+        }
+
+        @keyframes rod-right {
+            0%, 12% { transform: translateX(18px); }
+            30%, 100% { transform: translateX(0px); }
+        }
+
+        /* 4. A dobra superior do P (O Loop) */
+        @keyframes p-loop-final {
+            0%, 30% { stroke-dashoffset: 70; opacity: 0; transform: scale(0.95); }
+            45%, 96% { stroke-dashoffset: 0; opacity: 1; transform: scale(1); }
+            98%, 100% { opacity: 0; }
+        }
+
+        /* 5. Texto "apyr" entrando sincronizado */
+        @keyframes apyr-reveal-sync {
+            0%, 50% { opacity: 0; transform: translateX(-10px); filter: blur(10px); }
+            62%, 96% { opacity: 1; transform: translateX(0px); filter: blur(0px); }
+            98%, 100% { opacity: 0; transform: translateX(10px); }
+        }
+
+        /* 6. Efeito de Pulsação quando a logo está formada */
+        @keyframes logo-pulse {
+            0%, 62% { transform: scale(1); }
+            75% { transform: scale(1.02); }
+            88% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+
+        .animate-papyrus-body { 
+            animation: papyrus-closing 10s cubic-bezier(0.65, 0, 0.35, 1) infinite; 
+            transform-origin: center; 
+        }
+        
+        .animate-wavy { 
+            stroke-dasharray: 50;
+            animation: wavy-lines 10s ease-out infinite; 
+        }
+
+        .rod-l { animation: rod-left 10s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+        .rod-r { animation: rod-right 10s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+        .rod-container { animation: rods-closing 10s ease-in-out infinite; }
+
+        .animate-p-loop { 
+            stroke-dasharray: 70; 
+            stroke-dashoffset: 70; 
+            animation: p-loop-final 10s cubic-bezier(0.65, 0, 0.35, 1) infinite; 
+            transform-origin: 20px 20px;
+        }
+
+        .animate-text-apyr-sync { 
+            animation: apyr-reveal-sync 10s cubic-bezier(0.65, 0, 0.35, 1) infinite; 
+        }
+
+        .animate-logo-pulse {
+            animation: logo-pulse 10s ease-in-out infinite;
+        }
+
+        .loading-bar-inner {
+            animation: loading 2.5s infinite cubic-bezier(0.65, 0, 0.35, 1);
         }
 
         @keyframes loading {
@@ -49,16 +127,13 @@
             100% { transform: translateX(300%); }
         }
 
-        .animate-float { animation: float 5s ease-in-out infinite; }
-        
+        @keyframes draw {
+            to { stroke-dashoffset: 0; }
+        }
         .animate-draw {
             stroke-dasharray: 100;
             stroke-dashoffset: 100;
-            animation: draw 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        .loading-bar-inner {
-            animation: loading 2.5s infinite cubic-bezier(0.65, 0, 0.35, 1);
+            animation: draw 2.5s forwards;
         }
     </style>
 
@@ -76,7 +151,6 @@
 </head>
 <body>
     <div id="root"></div>
-    <!-- Script principal como módulo -->
     <script type="module" src="index.tsx"></script>
 </body>
 </html>
