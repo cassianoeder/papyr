@@ -51,7 +51,7 @@ const App: React.FC = () => {
           {/* Texts */}
           <div className="text-center space-y-2">
             <p className="text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.4em] text-zinc-400">
-              sendo desenvolvido com amor em um lugar da serra gaúcha
+              Sendo criado em algum vale da serra Gaúcha.
             </p>
             <p className="text-[9px] md:text-[10px] font-medium italic lowercase tracking-[0.2em] text-zinc-300">
               powered by: ederson wermeier
