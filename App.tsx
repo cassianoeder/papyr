@@ -9,39 +9,30 @@ const PapyrusLogo: React.FC = () => {
         fill="none" 
         xmlns="http://www.w3.org/2000/svg"
       >
-        {/* Corpo do Papiro (Área central que fecha dos lados) */}
         <rect 
           x="17" y="5" width="6" height="30" 
           rx="0.5"
           fill="black" 
           className="animate-papyrus-body"
         />
-
-        {/* Escritas Onduladas (Visíveis apenas enquanto o papiro está aberto) */}
         <g className="animate-wavy stroke-zinc-200" strokeWidth="0.5" strokeLinecap="round">
           <path d="M12 12 Q14 11 16 12 T20 12 T24 12 T28 12" />
           <path d="M12 16 Q14 15 16 16 T20 16 T24 16 T28 16" />
           <path d="M12 20 Q14 19 16 20 T20 20 T24 20 T28 20" />
           <path d="M12 24 Q14 23 16 24 T20 24 T24 24 T28 24" />
         </g>
-
-        {/* Hastes Laterais de Madeira */}
         <g className="rod-container">
-           {/* Haste Esquerda */}
            <g className="rod-l">
               <rect x="16" y="3" width="2" height="34" rx="1" fill="#444" />
               <rect x="15.5" y="2" width="3" height="2" rx="0.5" fill="#222" />
               <rect x="15.5" y="36" width="3" height="2" rx="0.5" fill="#222" />
            </g>
-           {/* Haste Direita */}
            <g className="rod-r">
               <rect x="22" y="3" width="2" height="34" rx="1" fill="#444" />
               <rect x="21.5" y="2" width="3" height="2" rx="0.5" fill="#222" />
               <rect x="21.5" y="36" width="3" height="2" rx="0.5" fill="#222" />
            </g>
         </g>
-        
-        {/* O Loop do P (Formado após as hastes se encontrarem no centro) */}
         <path 
           d="M20,6.5 C28,6.5 33,10.5 33,16 C33,21.5 28,25.5 20,25.5" 
           stroke="black" 
@@ -54,25 +45,67 @@ const PapyrusLogo: React.FC = () => {
   );
 };
 
+const BackgroundPapyrus: React.FC<{ size: number; top: string; left: string; opacity: number; delay: string }> = ({ size, top, left, opacity, delay }) => (
+  <div 
+    className="absolute pointer-events-none animate-drift" 
+    style={{ 
+      top, 
+      left, 
+      width: size, 
+      height: size, 
+      opacity,
+      animationDelay: delay
+    }}
+  >
+    <svg 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      className="w-full h-full text-zinc-900"
+    >
+      <path 
+        d="M12 24C12 24 11.5 18 12 12" 
+        stroke="currentColor" 
+        strokeWidth="1.2" 
+        strokeLinecap="round"
+      />
+      <g stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" opacity="0.8">
+        <path d="M12 12L7 7" />
+        <path d="M12 12L9.5 5" />
+        <path d="M12 12L12 4" />
+        <path d="M12 12L14.5 5" />
+        <path d="M12 12L17 7" />
+        <path d="M12 12L5 10" />
+        <path d="M12 12L19 10" />
+      </g>
+    </svg>
+  </div>
+);
+
 const App: React.FC = () => {
   return (
-    <div className="relative min-h-screen w-full flex flex-col items-center justify-center bg-white selection:bg-[#BCFFB1]">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 dot-pattern opacity-[0.05] pointer-events-none"></div>
+    <div className="relative min-h-screen w-full flex flex-col items-center justify-center bg-white selection:bg-[#BCFFB1] overflow-hidden">
+      {/* Background Layer */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 dot-pattern opacity-[0.05]"></div>
+        
+        {/* Decorative Background Plants - Opacidades ligeiramente aumentadas para melhor visibilidade */}
+        <BackgroundPapyrus size={120} top="10%" left="5%" opacity={0.08} delay="0s" />
+        <BackgroundPapyrus size={80} top="65%" left="12%" opacity={0.10} delay="-5s" />
+        <BackgroundPapyrus size={160} top="20%" left="80%" opacity={0.06} delay="-2s" />
+        <BackgroundPapyrus size={60} top="80%" left="85%" opacity={0.12} delay="-8s" />
+        <BackgroundPapyrus size={40} top="40%" left="15%" opacity={0.07} delay="-12s" />
+        <BackgroundPapyrus size={90} top="50%" left="75%" opacity={0.05} delay="-4s" />
+        <BackgroundPapyrus size={50} top="15%" left="45%" opacity={0.04} delay="-7s" />
+      </div>
 
       <main className="relative z-10 flex flex-col items-center">
         
-        {/* Branding Area Sync com Pulsação */}
+        {/* Branding Area */}
         <div className="flex items-center justify-center gap-0 mb-32 group animate-logo-pulse">
-          
-          {/* Logo Animada (O P em formação) */}
           <div className="transform translate-x-3 md:translate-x-5">
             <PapyrusLogo />
           </div>
-          
-          {/* Texto 'apyr' que surge após o P se estabilizar */}
           <div className="overflow-hidden flex items-center h-28 md:h-40">
-            {/* Espaçamento otimizado para o 'a' */}
             <span className="animate-text-apyr-sync text-7xl md:text-9xl font-extrabold tracking-tighter leading-none select-none text-black ml-1 md:ml-2">
               apyr
             </span>
@@ -82,23 +115,23 @@ const App: React.FC = () => {
         {/* Footer Info Section */}
         <div className="flex flex-col items-center gap-10">
           
-          {/* Decorative Papyrus Plant Icon */}
-          <div className="opacity-40 hover:opacity-100 transition-opacity duration-1000">
+          {/* Main Decorative Papyrus Plant Icon (Footer) */}
+          <div className="opacity-40 hover:opacity-100 transition-opacity duration-1000 relative">
+             {/* Glow effect */}
+            <div className="absolute inset-0 blur-2xl bg-[#BCFFB1] opacity-20 group-hover:opacity-40 transition-opacity"></div>
             <svg 
               width="32" 
               height="32" 
               viewBox="0 0 24 24" 
               fill="none" 
-              className="text-zinc-500 animate-sway"
+              className="text-zinc-500 animate-sway relative z-10"
             >
-              {/* Stem */}
               <path 
                 d="M12 24C12 24 11.5 18 12 12" 
                 stroke="currentColor" 
                 strokeWidth="1.5" 
                 strokeLinecap="round"
               />
-              {/* Umbel Rays (The fan-like head) */}
               <g stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.8">
                 <path d="M12 12L7 7" />
                 <path d="M12 12L9.5 5" />
@@ -132,7 +165,6 @@ const App: React.FC = () => {
         </div>
       </main>
 
-      {/* SR Only Header */}
       <h1 className="sr-only">Papyr - Sistema Bibliotecário Escolar</h1>
     </div>
   );

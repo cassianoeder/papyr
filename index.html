@@ -39,7 +39,7 @@
         @keyframes papyrus-closing {
             0%, 2% { transform: scaleX(4) scaleY(0.4); opacity: 0; }
             8%, 12% { transform: scaleX(3.5) scaleY(0.5); opacity: 1; }
-            30%, 96% { transform: scaleX(1) scaleY(1.1); opacity: 1; } /* Fica formado até quase o final */
+            30%, 96% { transform: scaleX(1) scaleY(1.1); opacity: 1; }
             98%, 100% { transform: scaleX(0.8) scaleY(1.2); opacity: 0; }
         }
 
@@ -95,6 +95,14 @@
             50% { transform: rotate(3deg) translateX(1px); }
         }
 
+        /* Animação de deriva lenta para o fundo */
+        @keyframes floating-drift {
+            0% { transform: translateY(0px) rotate(0deg) translateX(0px); }
+            33% { transform: translateY(-15px) rotate(2deg) translateX(8px); }
+            66% { transform: translateY(-5px) rotate(-1deg) translateX(-4px); }
+            100% { transform: translateY(0px) rotate(0deg) translateX(0px); }
+        }
+
         .animate-papyrus-body { 
             animation: papyrus-closing 10s cubic-bezier(0.65, 0, 0.35, 1) infinite; 
             transform-origin: center; 
@@ -127,6 +135,10 @@
         .animate-sway {
             animation: papyrus-sway 5s ease-in-out infinite;
             transform-origin: bottom center;
+        }
+
+        .animate-drift {
+            animation: floating-drift 15s ease-in-out infinite;
         }
 
         .loading-bar-inner {
